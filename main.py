@@ -5,6 +5,15 @@ import random
 import csv
 import logging
 
+# read env variables
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+token = os.environ.get("TOKEN")
+channel_id = int(os.environ.get("CHANNEL_ID"))
+
 def load_messages_from_csv(file_path):
     messages = []
     with open(file_path, mode='r', encoding='utf-8') as csvfile:
@@ -24,8 +33,8 @@ logging.basicConfig(handlers=[handler, console_handler], level=logging.INFO, for
 # Example usage
 csv_file_path = "./message.csv"
 string_list = load_messages_from_csv(csv_file_path)
-channel_id = 0000000000000000
 message_id = 0
+
 # client是跟discord連接，intents是要求機器人的權限
 intents = discord.Intents.default()
 intents.message_content = True
@@ -121,5 +130,4 @@ async def send_view():
     else:
         print("Channel not found!")
 
-
-client.run("你的Discord機器人token",log_handler=handler,log_level=logging.INFO)
+client.run(token, log_handler=handler, log_level=logging.INFO)
