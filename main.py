@@ -58,7 +58,10 @@ class SeaButtonHandler(discord.ui.Button):
 
         embed=discord.Embed(title=message["title"], description="➤ "+message["message"], color=0x007bff)
         embed.set_author(name="海港事件")
-        embed.add_field(name="事件結果", value="• "+message["final"], inline=True)
+
+        final_lines = message["final"].split("-----")
+        final_text = "\n".join(f"- {line.strip()}" for line in final_lines)
+        embed.add_field(name="事件結果", value=final_text, inline=True)
         await interaction.response.send_message(embed=embed, ephemeral=True)
         # print("Button clicked!")
 
