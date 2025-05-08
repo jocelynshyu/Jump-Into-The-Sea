@@ -14,6 +14,8 @@ load_dotenv()
 token = os.environ.get("TOKEN")
 channel_id = int(os.environ.get("CHANNEL_ID"))
 
+
+
 def load_messages_from_csv(file_path):
     messages = []
     with open(file_path, mode='r', encoding='utf-8') as csvfile:
@@ -38,7 +40,9 @@ message_id = 0
 # client是跟discord連接，intents是要求機器人的權限
 intents = discord.Intents.default()
 intents.message_content = True
-client = discord.Client(intents = intents)
+intents.guilds = True
+intents.members = True
+client = discord.Client(intents=intents)
 
 def get_sea_string():
     random.shuffle(string_list)  # 隨機打亂字串陣列
